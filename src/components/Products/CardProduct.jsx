@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Card,CardContent,Typography,Button,CardActions} from "@mui/material"
 import NewProduct from './NewProduct';
+import Swal from "sweetalert2"
 
 const CardProduct = ({products=[],addProduct}) => {
 
@@ -19,7 +20,11 @@ function parseQuantity(quantityString) {
       const quantity = parseQuantity(obj?.quantity)
       return acc + (price * quantity);
   }, 0);
-  setTotal(totalPrice)
+  console.log(typeof totalPrice)
+  setTotal(totalPrice.toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD'
+  }))
   },[products])
 
   const [open,setOpen]=useState(false)
@@ -32,6 +37,16 @@ function parseQuantity(quantityString) {
     setOpen(true)
   }
 
+  const handlePay = ()=>{
+    Swal.fire({
+      position: 'top-center',
+      icon: 'success',
+      title: 'Su pago fue exitoso',
+      showConfirmButton: false,
+      timer: 2500
+    })
+  }
+
   return (
    <>
     <Card sx={{ minWidth: 275 }}>
@@ -40,13 +55,13 @@ function parseQuantity(quantityString) {
         Total :
       </Typography>
       <Typography variant="h5" component="div">
-        $ {total}
+      {total} 
       </Typography>
      
     </CardContent>
     <CardActions >
       <div className='d-flex flex-column w-100'>
-      <Button variant='contained' disableElevation className='w-100 mb-2' >Pagar</Button>
+      <Button variant='contained' disableElevation className='w-100 mb-2' onClick={handlePay} >Pagar</Button>
       <Button variant='outlined' disableElevation className='w-100' onClick={handleOpen}>Agregar Producto</Button>
       </div>
       

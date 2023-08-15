@@ -32,7 +32,7 @@ const Tabla = ({rows=[]})=> {
               </TableCell>
               <TableCell align="right">{row.name}</TableCell>
               <TableCell align="right">{row.quantity}</TableCell>
-              <TableCell align="right">{row.price}</TableCell>
+              <TableCell align="right">${row.price}</TableCell>
             </TableRow>
           ))}
         </TableBody>
